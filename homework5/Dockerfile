@@ -10,7 +10,7 @@ WORKDIR /app
 COPY ["Pipfile", "Pipfile.lock", "./"]
 RUN pipenv install --system --deploy
 
-COPY ["serve.py", "model2.bin", "dv.bin", "./"]
+COPY ["serve.py", "./"]
 
 EXPOSE 9697
 
