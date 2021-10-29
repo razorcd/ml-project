@@ -16,3 +16,10 @@ Jupiter notebook has comments on each stept to:
 - prepare hot encoding
 
 https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
+
+##TODO
+[x] try linear logistic regresion
+[ ] try decision trees
+[ ] try decision forest
+[ ] create server and dockerize
+[ ] deploy
