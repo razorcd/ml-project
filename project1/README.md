@@ -22,4 +22,5 @@ https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
 [ ] try decision trees
 [ ] try decision forest
 [ ] create server and dockerize
+[ ] tests
 [ ] deploy
