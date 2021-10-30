@@ -24,6 +24,10 @@ https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
     - checked and prepared data
     - split data 60/20/20
     - select features
+    - Columns selected for training: 
+      - `x = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'age', 'education-num', 'hours-per-week']`,
+      - `y = 'low_income'` (binary verion of 'income')
+
 2. Trained a Logistic Regretion model:
     - tried different columns and countries to find most accurate combination.
     - found best AUC for LogisticRegresion: `0.8800928825718033`
@@ -39,7 +43,8 @@ https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
     - found best xgboost arguments with smallest depth:  
       `auc: 0.883, depth:    4, eta:  0.4`
     - found best AUC for xgboost: `0.8834040882607493`
-      
+5. Tested AUC with different split % for full_train model with xgboost.
+    - AUC was very random and left the default 60/20/20 split.
 
 
 ##TODO
