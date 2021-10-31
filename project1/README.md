@@ -38,7 +38,7 @@ Jupiter notebook has progress comments on each stept.
       `auc: 0.883, depth:    4, eta:  0.4`
     - found best AUC for xgboost: `0.8834040882607493`
 5. Tested AUC with different split % for full_train model with xgboost.
-    - AUC was very random and left the default 60/20/20 split.
+    - AUC was very random on different splits and decided to use the default 60/20/20 split.
 
 ## Build final model
 Follow commands:
