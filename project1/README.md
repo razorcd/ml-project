@@ -276,8 +276,8 @@ Successfully tagged project1_v0.2:latest
 ```
 
 ## TODO
-[x] try linear logistic regresion
-[x] try decision trees
-[x] try xgboost
-[x] create server and dockerize
-[ ] deploy to cloud
+  - [x] try linear logistic regresion
+  - [x] try decision trees
+  - [x] try xgboost
+  - [x] create server and dockerize
+  - [ ] deploy to cloud
