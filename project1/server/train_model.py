@@ -183,7 +183,7 @@ def predict(dataFrame, dv, model):
 print(f'doing validation with eta={eta}, max_depth={max_depth}')
 
 scores = []
-for i in [1,2,3,4,5,6,7,8,9,10]:
+for i in range(0, 10):
     df_full_train, df_train, df_val, df_test, y_full_train, y_train, y_val, y_test = split_data(df_clean_filtered, split1=0.2, split2=0.25)
     dv, model = train(df_train, y_train, max_depth=max_depth, eta=eta)
     y_pred_val, X_val = predict(df_val, dv, model)
