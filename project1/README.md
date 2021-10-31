@@ -49,7 +49,7 @@ Jupiter notebook has progress comments on each stept.
 6. Built model_training script using xgboost because it was most acurate.
     - source: [server/train_model.py](server/train_model.py)
 7. Created web server to serve model using an API
-    - server app source: [/server](/server)
+    - server app source: [server/](server/)
     - server python file source: [server/serve.py](server/serve.py)
     - note the web server can do batch predictions to improuve performance. Reqeust payload accepts an array of data and will return an array of predictions in same order.
     - web server will catch some exceptions to return user friendly error messages and correct Status Code.
