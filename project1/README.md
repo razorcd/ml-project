@@ -14,25 +14,26 @@ Source and details: https://archive.ics.uci.edu/ml/datasets/Census+Income
 ## Project progress
 Jupiter notebook has progress comments on each stept.
 
-1. PrepareData:
+1. PrepareData: [project1_prepareData.ipynb](project1_prepareData.ipynb)
     - checked and prepared data
     - split data 60/20/20
     - select features
+    - decided to use only USA data, other counties did not have sufficient data and salaries are varying a lot between countries.
     - Columns selected for training: 
       - `x = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'age', 'education-num', 'hours-per-week']`,
       - `y = 'low_income'` (binary verion of 'income')
-
 2. Trained a Logistic Regretion model:
+    - notice this notebook is linked to the PrepareData notebook
     - tried different columns and countries to find most accurate combination.
     - found best AUC for LogisticRegresion: `0.8800928825718033`
 3. Trained a Decision Tree Classifier model:
-    - used same features as logistic regretion
+    - notice this notebook is linked to the PrepareData notebook. It is using same features as logistic regretion.
     - tried different Decision Tree Classifier arguments: max_depth, min_samples_leaf to find most accurate model.
     - found best Decision Tree Classifier arguments with smallest depth:  
       `auc: 0.874, depth:   10, min_samples_leaf:  100`
     - found best AUC for Decision Tree Classifier: `0.8739460370994941`
 4. Trained a xgboost model:
-    - used same features as logistic regretion
+    - notice this notebook is linked to the PrepareData notebook. It is using same features as logistic regretion.
     - tried different xgboost properties: max_bepth, eta
     - found best xgboost arguments with smallest depth:  
       `auc: 0.883, depth:    4, eta:  0.4`
@@ -276,8 +277,9 @@ Successfully tagged project1_v0.2:latest
 ```
 
 ## TODO
+  - [x] prepare data
   - [x] try linear logistic regresion
   - [x] try decision trees
   - [x] try xgboost
   - [x] create server and dockerize
-  - [ ] deploy to cloud
+  - [ ] deploy to cloud (optional)
