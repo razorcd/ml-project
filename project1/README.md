@@ -45,6 +45,9 @@ Jupiter notebook has progress comments on each stept.
     - web server will catch some exceptions to return user friendly error messages and correct Status Code.
     - server can be started using vanila Python or Unicorn.
     - see below how to start it and how to call it
+8. Created Docker image with the web server
+    - docker image is serving the API on port 9000
+    - see below how to build and run the docker image
 
 
 ## Build final model
@@ -162,10 +165,119 @@ model_xg_0.4_4.bin  Pipfile  Pipfile.lock  train_model.py
 }
 ```
 
+## Build docker image
+```bash
+(base) ➜  project1 git:(main) ✗ cd server 
+
+(base) ➜  server git:(main) ✗ pipenv install
+Pipfile.lock not found, creating...
+Locking [dev-packages] dependencies...
+Locking [packages] dependencies...
+Building requirements...
+Resolving dependencies...
+✔ Success! 
+Updated Pipfile.lock (73e6b9)!
+Installing dependencies from Pipfile.lock (73e6b9)...
+  🎃   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 3/3 — 00:00:00
+
+(base) ➜  server git:(main) ✗ docker build -t project1_v0.2 .
+Sending build context to Docker daemon  72.19kB
+Step 1/8 : FROM python:3.8.12-slim
+ ---> 32a5625aad35
+Step 2/8 : RUN pip install pipenv
+ ---> Using cache
+ ---> 262147d37546
+Step 3/8 : WORKDIR /app
+ ---> Using cache
+ ---> 153736e2bb7e
+Step 4/8 : COPY ["Pipfile", "Pipfile.lock", "./"]
+ ---> 4b7c708c6c0e
+Step 5/8 : RUN pipenv install --system --deploy
+ ---> Running in 8b27a6bce3b6
+Installing dependencies from Pipfile.lock (73e6b9)...
+Removing intermediate container 8b27a6bce3b6
+ ---> 12019fd9ece2
+Step 6/8 : COPY ["serve.py", "model_xg_0.4_4.bin", "./"]
+ ---> 6440b0c37070
+Step 7/8 : EXPOSE 9696
+ ---> Running in b05be9638f9a
+Removing intermediate container b05be9638f9a
+ ---> 03f8796b36a5
+Step 8/8 : ENTRYPOINT ["gunicorn", "--bind=0.0.0.0:9696", "serve:app"]
+ ---> Running in 591ec60d2660
+Removing intermediate container 591ec60d2660
+ ---> 14f83c080c2c
+Successfully built 14f83c080c2c
+Successfully tagged project1_v0.2:latest
+```
+
+## Run docker image
+```bash
+(base) ➜  server git:(main) ✗ docker run -ti --rm -p 9000:9696 project1_v0.2
+[2021-10-31 10:41:59 +0000] [1] [INFO] Starting gunicorn 20.1.0
+[2021-10-31 10:41:59 +0000] [1] [INFO] Listening at: http://0.0.0.0:9696 (1)
+[2021-10-31 10:41:59 +0000] [1] [INFO] Using worker: sync
+[2021-10-31 10:41:59 +0000] [7] [INFO] Booting worker with pid: 7
+```
+! notice Docker server API is exposed on port 9000
+
+## Call API on Dockerized server:
+```bash
+(base) ➜  ~ curl -v -X POST \                                                 
+  http://localhost:9000/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "data":[
+                {
+                        "workclass": "Private",
+                         "education": "HS-grad",
+                         "marital-status": "Divorced",
+                         "occupation": "Machine-op-inspct",
+                         "relationship": "Not-in-family",
+                         "race": "White",
+                         "sex": "Female",
+                         "age": 59,
+                         "education-num": 9,
+                         "hours-per-week": 40
+                },
+                {
+                        "workclass": "Private",
+                         "education": "Bachelors",
+                         "marital-status": "Never-married",
+                         "occupation": "Exec-managerial",
+                         "relationship": "Not-in-family",
+                         "race": "White",
+                         "sex": "Male",
+                         "age": 48,
+                         "education-num": 20,
+                         "hours-per-week": 45
+                }
+        ]
+}'
+*   Trying 127.0.0.1:9000...
+* Connected to localhost (127.0.0.1) port 9000 (#0)
+> POST /predict HTTP/1.1
+> Host: localhost:9000
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 579
+> 
+* upload completely sent off: 579 out of 579 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: gunicorn
+< Date: Sun, 31 Oct 2021 10:46:55 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 123
+< 
+{"predictions":[{"low_income":true,"low_income_probability":"0.94"},{"low_income":false,"low_income_probability":"0.28"}]}
+```
 
 ## TODO
 [x] try linear logistic regresion
 [x] try decision trees
 [x] try xgboost
-[ ] create server and dockerize
-[ ] deploy
+[x] create server and dockerize
+[ ] deploy to cloud
