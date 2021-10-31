@@ -8,17 +8,11 @@ Scope: Predict whether income exceeds $50K/yr based on goverment census data. Al
 
 Source and details: https://archive.ics.uci.edu/ml/datasets/Census+Income
 
-## Project
+## Development System
+  - OS: x64 Linux Ubuntu
 
-Jupiter notebook has comments on each stept to:
-- check and cleanup the data
-- split the data (60/20/20)
-- prepare hot encoding
-
-https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
-
-
-## Project results
+## Project progress
+Jupiter notebook has progress comments on each stept.
 
 1. PrepareData:
     - checked and prepared data
@@ -46,8 +40,33 @@ https://github.com/razorcd/ml-training/blob/main/project1/project1.ipynb
 5. Tested AUC with different split % for full_train model with xgboost.
     - AUC was very random and left the default 60/20/20 split.
 
+## Build final model
+Follow commands:
 
-##TODO
+```
+(base) ➜  project1 git:(main) ✗ cd server 
+
+(base) ➜  server git:(main) ✗ pipenv install
+Installing dependencies from Pipfile.lock (0baaa4)...
+  🎃   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 0/0 — 00:00:00
+
+(base) ➜  server git:(main) ✗ python train_model.py 
+Data file loaded. records count: 32560
+Columns selected for training: Index(['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'age', 'education-num', 'hours-per-week', 'low_income'], dtype='object')
+doing validation with eta=0.4, max_depth=4
+validation mean auc=0.887, +-0.003
+training the final model. records count= 22002
+test auc=0.8808422986175
+the model is saved to model_xg_0.4_4.bin
+
+(base) ➜  server git:(main) ✗ ls
+model_xg_0.4_4.bin  Pipfile  Pipfile.lock  train_model.py
+
+```
+
+
+
+## TODO
 [x] try linear logistic regresion
 [x] try decision trees
 [x] try xgboost
