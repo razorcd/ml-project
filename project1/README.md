@@ -11,10 +11,12 @@ Source and details: https://archive.ics.uci.edu/ml/datasets/Census+Income
 ## Development System
   - OS: x64 Linux Ubuntu
 
-## Project progress
+# Project progress
+
 Jupiter notebook has progress comments on each stept.
 
-1. PrepareData: [project1_prepareData.ipynb](project1_prepareData.ipynb)
+1. PrepareData: 
+    - source: [project1_prepareData.ipynb](project1_prepareData.ipynb)
     - checked and prepared data
     - split data 60/20/20
     - select features
@@ -23,33 +25,43 @@ Jupiter notebook has progress comments on each stept.
       - `x = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'age', 'education-num', 'hours-per-week']`,
       - `y = 'low_income'` (binary verion of 'income')
 2. Trained a Logistic Regretion model:
+    - source: [project1_logisticRegresion.ipynb](project1_logisticRegresion.ipynb)
     - notice this notebook is linked to the PrepareData notebook
     - tried different columns and countries to find most accurate combination.
     - found best AUC for LogisticRegresion: `0.8800928825718033`
 3. Trained a Decision Tree Classifier model:
+    - source: [project1_decisionTree.ipynb](project1_decisionTree.ipynb)
     - notice this notebook is linked to the PrepareData notebook. It is using same features as logistic regretion.
     - tried different Decision Tree Classifier arguments: max_depth, min_samples_leaf to find most accurate model.
     - found best Decision Tree Classifier arguments with smallest depth:  
       `auc: 0.874, depth:   10, min_samples_leaf:  100`
     - found best AUC for Decision Tree Classifier: `0.8739460370994941`
 4. Trained a xgboost model:
+    - source: [project1_xgboost.ipynb](project1_xgboost.ipynb)
     - notice this notebook is linked to the PrepareData notebook. It is using same features as logistic regretion.
     - tried different xgboost properties: max_bepth, eta
     - found best xgboost arguments with smallest depth:  
       `auc: 0.883, depth:    4, eta:  0.4`
     - found best AUC for xgboost: `0.8834040882607493`
 5. Tested AUC with different split % for full_train model with xgboost.
+    - source: [project1_xgboost_bestSplit.ipynb](project1_xgboost_bestSplit.ipynb)
     - AUC was very random on different splits and decided to use the default 60/20/20 split.
 6. Built model_training script using xgboost because it was most acurate.
+    - source: [server/train_model.py](server/train_model.py)
 7. Created web server to serve model using an API
+    - server app source: [/server](/server)
+    - server python file source: [server/serve.py](server/serve.py)
     - note the web server can do batch predictions to improuve performance. Reqeust payload accepts an array of data and will return an array of predictions in same order.
     - web server will catch some exceptions to return user friendly error messages and correct Status Code.
     - server can be started using vanila Python or Unicorn.
     - see below how to start it and how to call it
 8. Created Docker image with the web server
+    - source: [server/Dockerfile](server/Dockerfile)
     - docker image is serving the API on port 9000
     - see below how to build and run the docker image
 
+
+# Steps to run the application.
 
 ## Build final model
 Follow commands:
