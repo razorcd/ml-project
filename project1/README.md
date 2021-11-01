@@ -351,8 +351,8 @@ docker run -ti --rm -p 9000:9696 razorcd/ml-project1_v0.2
 
 ## TODO
   - [x] prepare data
-  - [x] try linear logistic regresion
-  - [x] try decision trees
-  - [x] try xgboost
+  - [x] train with linear logistic regresion
+  - [x] train with decision trees
+  - [x] train with xgboost
   - [x] create server and dockerize
   - [x] deploy to cloud (optional)
