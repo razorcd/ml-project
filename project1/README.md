@@ -291,6 +291,7 @@ Successfully tagged project1_v0.2:latest
 ```
 
 ## Run docker image from my docker hub repository:
+- public Docker image: https://hub.docker.com/r/razorcd/ml-project1_v0.2
 ```bash
 docker run -ti --rm -p 9000:9696 razorcd/ml-project1_v0.2
 ```
