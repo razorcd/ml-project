@@ -59,6 +59,8 @@ Jupiter notebook has progress comments on each stept.
     - source: [server/Dockerfile](server/Dockerfile)
     - docker image is serving the API on port 9000
     - see below how to build and run the docker image
+9. Deployed to DigitalOcean using the docker image.
+    - see below how to call ML-project1 running in cloud
 
 
 # Steps to run the application.
@@ -288,10 +290,68 @@ Successfully tagged project1_v0.2:latest
 {"predictions":[{"low_income":true,"low_income_probability":"0.94"},{"low_income":false,"low_income_probability":"0.28"}]}
 ```
 
+## Run docker image from my docker hub repository:
+```bash
+docker run -ti --rm -p 9000:9696 razorcd/ml-project1_v0.2
+```
+
+## Access ML project deployed in DigitaOcean Cloud
+```bash
+(base) ➜  ~ curl -v -X POST http://206.189.61.226/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "data":[
+                {
+                        "workclass": "Private",
+                         "education": "HS-grad",
+                         "marital-status": "Divorced",
+                         "occupation": "Machine-op-inspct",
+                         "relationship": "Not-in-family",
+                         "race": "White",
+                         "sex": "Female",
+                         "age": 59,
+                         "education-num": 9,
+                         "hours-per-week": 40
+                },
+                {
+                        "workclass": "Private",
+                         "education": "Bachelors",
+                         "marital-status": "Never-married",
+                         "occupation": "Exec-managerial",
+                         "relationship": "Not-in-family",
+                         "race": "White",
+                         "sex": "Male",
+                         "age": 48,
+                         "education-num": 20,
+                         "hours-per-week": 45
+                }
+        ]
+}'
+*   Trying 206.189.61.226:80...
+* Connected to 206.189.61.226 (206.189.61.226) port 80 (#0)
+> POST /predict HTTP/1.1
+> Host: 206.189.61.226
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 1069
+> 
+* upload completely sent off: 1069 out of 1069 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: gunicorn
+< Date: Mon, 01 Nov 2021 00:02:11 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 123
+< 
+{"predictions":[{"low_income":true,"low_income_probability":"0.96"},{"low_income":false,"low_income_probability":"0.34"}]}
+```
+
 ## TODO
   - [x] prepare data
   - [x] try linear logistic regresion
   - [x] try decision trees
   - [x] try xgboost
   - [x] create server and dockerize
-  - [ ] deploy to cloud (optional)
+  - [x] deploy to cloud (optional)
