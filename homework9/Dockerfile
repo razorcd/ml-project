@@ -1,6 +1,7 @@
 # aws ecr-public get-login-password --region us-east-1 --profile razorcd | docker login --username AWS --password-stdin public.ecr.aws/g5w4y6q4
 # docker build -t public.ecr.aws/g5w4y6q4/razorcd .
 # docker push public.ecr.aws/g5w4y6q4/razorcd
+# curl -v -X POST -d "{\"url\": \"https://upload.wikimedia.org/wikipedia/commons/1/18/Vombatus_ursinus_-Maria_Island_National_Park.jpg\"}"   http://localhost:8080/2015-03-31/functions/function/invocations
 # Event: {"url": "http://bit.ly/mlbookcamp-pants"}
 
 FROM agrigorev/zoomcamp-cats-dogs-lambda:v2

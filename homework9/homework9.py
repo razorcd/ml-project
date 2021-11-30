@@ -4,10 +4,6 @@
 # homework9.lambda_handler(event, None)
 
 
-# Load TensorFlow Lite model
-# !pip install --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
-
-
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 from tensorflow.keras.preprocessing import image
