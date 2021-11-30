@@ -11,7 +11,6 @@
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 from tensorflow.keras.preprocessing import image
-import matplotlib.pyplot as plt
 
 import tensorflow.lite as tflite
 # import tflite_runtime.interpreter as tflite
@@ -65,7 +64,7 @@ def predict(url):
 
     preds = interpreter.get_tensor(output_index)
 
-    return {"result": preds[0][0]}
+    return {"result": str(preds[0][0])}
 
 
     # X = preprocessor.from_url(url)
