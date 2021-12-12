@@ -28,7 +28,7 @@ Jupiter notebook has progress comments on each stept.
     - split data 60/20/20
     
 2. Trained a Linear Regretion model:
-    - source: [capstoneProject_logisticRegresion.ipynb](capstoneProject_logisticRegresion.ipynb)
+    - source: [capstoneProject_linearRegresion.ipynb](capstoneProject_linearRegresion.ipynb)
     - notice this notebook is linked to the data_analysis notebook
     - tried different columns and countries to find most accurate combination.
     - Columns selected for training: 
