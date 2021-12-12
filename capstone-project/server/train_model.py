@@ -17,7 +17,7 @@ from sklearn import metrics
 # parameters
 
 eta = 0.6
-max_depth = 30
+max_depth = 20
 output_file = f'model_xg_{eta}_{max_depth}.bin'
 
 
@@ -25,20 +25,6 @@ output_file = f'model_xg_{eta}_{max_depth}.bin'
 
 df = pd.read_csv('../immo_data_final.csv')
 print("Data file loaded. records count:", len(df))
-# columns = [
-#     'newlyConst', 
-#     'balcony', 
-#     'hasKitchen', 
-#     'cellar', 
-#     'baseRent',
-#     'livingSpace', 
-#     'lift', 
-#     'noRooms', 
-#     'garden', 
-#     'heating',
-#     'neighbourhoods'
-# ]
-# df.columns = columns
 
 # column types
 categorical_columns = [
