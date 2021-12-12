@@ -1,4 +1,4 @@
-# Capstone project from ML Zoomcamp
+# Capstone project for ML Zoomcamp
 
 Once you move to Berlin, the hardest thing you face is renting an apartment. The competition is very high and prieces vary a lot.
 I have built this ML application to predict the baseRent of an apartment based on features like living space, rooms, area, etc.
@@ -20,12 +20,21 @@ I have selected only data from Berlin. This gives around 10000 records.
 
 Jupiter notebook has progress comments on each stept.
 
+1. PrepareData: 
+    - source: [data_analysis.ipynb](data_analysis.ipynb)
+    - selected only Berlin data
+    - checked and removed invalid data
+    - select features
+    - split data 60/20/20
+    - Columns selected for training: 
+      - `x = []`,
+      - `y = 'baseRent'` (numerical)
 
 ## TODO ckecklist:
 
- - [ ] find Dataset
- - [ ] cleanup data
- - [ ] perform EDA (exploratory data analysis)
+ - [x] find Dataset
+ - [x] cleanup data
+ - [x] perform EDA (exploratory data analysis)
  - [ ] prepare data for model training
  - [ ] train with linear logistic regresion
  - [ ] train with decision trees
