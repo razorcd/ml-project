@@ -26,17 +26,23 @@ Jupiter notebook has progress comments on each stept.
     - checked and removed invalid data
     - select features
     - split data 60/20/20
+    
+2. Trained a Linear Regretion model:
+    - source: [capstoneProject_logisticRegresion.ipynb](capstoneProject_logisticRegresion.ipynb)
+    - notice this notebook is linked to the data_analysis notebook
+    - tried different columns and countries to find most accurate combination.
     - Columns selected for training: 
-      - `x = []`,
-      - `y = 'baseRent'` (numerical)
+        - `x = [cellar	baseRent	livingSpace	noRooms	heating	neighbourhoods]`,
+        - `y = 'baseRent'` (numerical)
+    - found `MAE = 257.2` and `Model max deviation 50.00: 15.714 percent`
 
 ## TODO ckecklist:
 
  - [x] find Dataset
  - [x] cleanup data
  - [x] perform EDA (exploratory data analysis)
- - [ ] prepare data for model training
- - [ ] train with linear logistic regresion
+ - [x] prepare data for model training
+ - [x] train with linear logistic regresion
  - [ ] train with decision trees
  - [ ] train with xgboost
  - [ ] prepare data with Keras and train with Tensorflow
