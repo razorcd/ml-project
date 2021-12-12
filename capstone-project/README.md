@@ -35,6 +35,15 @@ Jupiter notebook has progress comments on each stept.
         - `x = [cellar	baseRent	livingSpace	noRooms	heating	neighbourhoods]`,
         - `y = 'baseRent'` (numerical)
     - found `MAE = 257.2` and `Model max deviation 50.00: 15.714 percent`
+3. Trained a xgboost model:
+    - source: [capstoneProject__xgboost.ipynb](capstoneProject__xgboost.ipynb)
+    - notice this notebook is linked to the data_analysis notebook
+    - tried different xgboost properties: max_bepth, eta
+    - found best xgboost arguments with smallest depth:  `max_depth: 30, eta: 0.6`
+    - Columns selected for training: 
+        - `x = [newlyConst	balcony	hasKitchen	cellar	baseRent	livingSpace	lift	noRooms	garden	heating	neighbourhoods]`,
+        - `y = 'baseRent'` (numerical)
+    - found `MAE = 223.181` and `Model max deviation 50.00: 27.198 percent`
 
 ## TODO ckecklist:
 
@@ -43,8 +52,7 @@ Jupiter notebook has progress comments on each stept.
  - [x] perform EDA (exploratory data analysis)
  - [x] prepare data for model training
  - [x] train with linear logistic regresion
- - [ ] train with decision trees
- - [ ] train with xgboost
+ - [x] train with xgboost
  - [ ] prepare data with Keras and train with Tensorflow
  - [ ] create server and dockerize
  - [ ] deploy to cloud (optional)
