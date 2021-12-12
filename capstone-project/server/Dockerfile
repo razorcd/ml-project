@@ -1,5 +1,5 @@
-# docker build -t project1_v0.2 .
-# docker run -ti --rm -p 9000:9696 project1_v0.2
+# docker build -t capstone_project:v0.1 .
+# docker run -ti --rm -p 9000:9696 capstone_project:v0.1
 
 FROM python:3.8.12-slim
 
@@ -10,7 +10,7 @@ WORKDIR /app
 COPY ["Pipfile", "Pipfile.lock", "./"]
 RUN pipenv install --system --deploy
 
-COPY ["serve.py", "model_xg_0.4_4.bin", "./"]
+COPY ["serve.py", "model_xg_0.6_20.bin", "./"]
 
 EXPOSE 9696
 

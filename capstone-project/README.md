@@ -184,8 +184,8 @@ Updated Pipfile.lock (73e6b9)!
 Installing dependencies from Pipfile.lock (73e6b9)...
   🎃   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 3/3 — 00:00:00
 
-(base) ➜  server git:(main) ✗ docker build -t project1_v0.2 .
-Sending build context to Docker daemon  72.19kB
+(base) ➜  server git:(main) docker build -t capstone_project:v0.1 . 
+Sending build context to Docker daemon  1.674MB
 Step 1/8 : FROM python:3.8.12-slim
  ---> 32a5625aad35
 Step 2/8 : RUN pip install pipenv
@@ -195,69 +195,70 @@ Step 3/8 : WORKDIR /app
  ---> Using cache
  ---> 153736e2bb7e
 Step 4/8 : COPY ["Pipfile", "Pipfile.lock", "./"]
- ---> 4b7c708c6c0e
+ ---> 9789f4690cef
 Step 5/8 : RUN pipenv install --system --deploy
- ---> Running in 8b27a6bce3b6
+ ---> Running in c97d59df307c
 Installing dependencies from Pipfile.lock (73e6b9)...
-Removing intermediate container 8b27a6bce3b6
- ---> 12019fd9ece2
-Step 6/8 : COPY ["serve.py", "model_xg_0.4_4.bin", "./"]
- ---> 6440b0c37070
+Removing intermediate container c97d59df307c
+ ---> a0da06768ded
+Step 6/8 : COPY ["serve.py", "model_xg_0.6_20.bin", "./"]
+ ---> 776a41c6989a
 Step 7/8 : EXPOSE 9696
- ---> Running in b05be9638f9a
-Removing intermediate container b05be9638f9a
- ---> 03f8796b36a5
+ ---> Running in 9ee1152f0d87
+Removing intermediate container 9ee1152f0d87
+ ---> cbbecfa9784d
 Step 8/8 : ENTRYPOINT ["gunicorn", "--bind=0.0.0.0:9696", "serve:app"]
- ---> Running in 591ec60d2660
-Removing intermediate container 591ec60d2660
- ---> 14f83c080c2c
-Successfully built 14f83c080c2c
-Successfully tagged project1_v0.2:latest
+ ---> Running in 7e5fdaa73af3
+Removing intermediate container 7e5fdaa73af3
+ ---> 3b7063c50e92
+Successfully built 3b7063c50e92
+Successfully tagged capstone_project:v0.1
 ```
 
 ## Run docker image
 ```bash
-(base) ➜  server git:(main) ✗ docker run -ti --rm -p 9000:9696 project1_v0.2
-[2021-10-31 10:41:59 +0000] [1] [INFO] Starting gunicorn 20.1.0
-[2021-10-31 10:41:59 +0000] [1] [INFO] Listening at: http://0.0.0.0:9696 (1)
-[2021-10-31 10:41:59 +0000] [1] [INFO] Using worker: sync
-[2021-10-31 10:41:59 +0000] [7] [INFO] Booting worker with pid: 7
+(base) ➜  server git:(main) ✗ docker run -ti --rm -p 9000:9696 capstone_project:v0.1
+[2021-12-12 17:36:42 +0000] [1] [INFO] Starting gunicorn 20.1.0
+[2021-12-12 17:36:42 +0000] [1] [INFO] Listening at: http://0.0.0.0:9696 (1)
+[2021-12-12 17:36:42 +0000] [1] [INFO] Using worker: sync
+[2021-12-12 17:36:42 +0000] [7] [INFO] Booting worker with pid: 7
 ```
 ! notice Docker server API is exposed on port 9000
 
 ## Call API on Dockerized server:
 ```bash
-(base) ➜  ~ curl -v -X POST \                                                 
+(base) ➜  ~ curl -v -X POST \
   http://localhost:9000/predict \
   -H 'Content-Type: application/json' \
   -d '{
         "data":[
                 {
-                        "workclass": "Private",
-                         "education": "HS-grad",
-                         "marital-status": "Divorced",
-                         "occupation": "Machine-op-inspct",
-                         "relationship": "Not-in-family",
-                         "race": "White",
-                         "sex": "Female",
-                         "age": 59,
-                         "education-num": 9,
-                         "hours-per-week": 40
+                    "neighbourhood": "friedrichshain",
+                    "heating": "normal",
+                    "newlyConst": false,
+                    "balcony": true,
+                    "hasKitchen": true,
+                    "cellar": true,
+                    "livingSpace": 62,
+                    "lift": false,
+                    "noRooms": 2,
+                    "garden": false
                 },
                 {
-                        "workclass": "Private",
-                         "education": "Bachelors",
-                         "marital-status": "Never-married",
-                         "occupation": "Exec-managerial",
-                         "relationship": "Not-in-family",
-                         "race": "White",
-                         "sex": "Male",
-                         "age": 48,
-                         "education-num": 20,
-                         "hours-per-week": 45
+                    "neighbourhood": "Steglitz",
+                    "heating": "normal",
+                    "newlyConst": false,
+                    "balcony": false,
+                    "hasKitchen": true,
+                    "cellar": true,
+                    "livingSpace":75,
+                    "lift": false,
+                    "noRooms": 3,
+                    "garden": true
                 }
         ]
 }'
+Note: Unnecessary use of -X or --request, POST is already inferred.
 *   Trying 127.0.0.1:9000...
 * Connected to localhost (127.0.0.1) port 9000 (#0)
 > POST /predict HTTP/1.1
@@ -265,24 +266,88 @@ Successfully tagged project1_v0.2:latest
 > User-Agent: curl/7.71.1
 > Accept: */*
 > Content-Type: application/json
-> Content-Length: 579
+> Content-Length: 530
 > 
-* upload completely sent off: 579 out of 579 bytes
+* upload completely sent off: 530 out of 530 bytes
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 200 OK
 < Server: gunicorn
-< Date: Sun, 31 Oct 2021 10:46:55 GMT
+< Date: Sun, 12 Dec 2021 17:37:45 GMT
 < Connection: close
 < Content-Type: application/json
-< Content-Length: 123
+< Content-Length: 52
 < 
-{"predictions":[{"low_income":true,"low_income_probability":"0.94"},{"low_income":false,"low_income_probability":"0.28"}]}
+{
+    "prediction":[
+        {
+            "baseRent": 907
+        },
+        {
+            "baseRent":1040
+        }
+    ]
+}
 ```
 
 ## Run docker image from my docker hub repository:
-- public Docker image: https://hub.docker.com/r/razorcd/ml-project1_v0.2
+- public Docker image: https://hub.docker.com/repository/docker/razorcd/capstone_project/general
 ```bash
-docker run -ti --rm -p 9000:9696 razorcd/ml-project1_v0.2
+docker run -ti --rm -p 80:9696 razorcd/capstone_project:v0.1
+```
+
+
+## Access ML project deployed in DigitaOcean Cloud
+```bash
+(base) ➜  ~ curl -v -X POST http://206.189.61.226/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "data":[
+                {
+                    "neighbourhood": "friedrichshain",
+                    "heating": "normal",
+                    "newlyConst": false,
+                    "balcony": true,
+                    "hasKitchen": true,
+                    "cellar": true,
+                    "livingSpace": 62,
+                    "lift": false,
+                    "noRooms": 2,
+                    "garden": false
+                },
+                {
+                    "neighbourhood": "Steglitz",
+                    "heating": "normal",
+                    "newlyConst": false,
+                    "balcony": false,
+                    "hasKitchen": true,
+                    "cellar": true,
+                    "livingSpace":75,
+                    "lift": false,
+                    "noRooms": 3,
+                    "garden": true
+                }
+        ]
+}'
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 206.189.61.226:80...
+* Connected to 206.189.61.226 (206.189.61.226) port 80 (#0)
+> POST /predict HTTP/1.1
+> Host: 206.189.61.226
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 884
+> 
+* upload completely sent off: 884 out of 884 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: gunicorn
+< Date: Sun, 12 Dec 2021 18:24:56 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 52
+< 
+{"prediction":[{"baseRent":907},{"baseRent":1040}]}
 ```
 
 
@@ -294,6 +359,6 @@ docker run -ti --rm -p 9000:9696 razorcd/ml-project1_v0.2
  - [x] prepare data for model training
  - [x] train with linear logistic regresion
  - [x] train with xgboost
- - [ ] prepare data with Keras and train with Tensorflow
- - [ ] create server and dockerize
- - [ ] deploy to cloud (optional)
+ - [ ] prepare data with Keras and train with Tensorflow (optional)
+ - [x] create server and dockerize
+ - [x] deploy to cloud (optional)
