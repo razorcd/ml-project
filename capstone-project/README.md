@@ -46,7 +46,20 @@ Jupiter notebook has progress comments on each stept.
     - found `MAE = 219` and `Model max deviation for 50: 27.391 percent`
 4. Built model_training script using xgboost because it was most acurate.
     - source: [server/train_model.py](server/train_model.py)
-
+7. Created web server to serve model using an API
+    - server app source: [server/](server/)
+    - server python file source: [server/serve.py](server/serve.py)
+    - note the web server can do batch predictions to improuve performance. Reqeust payload accepts an array of data and will return an array of predictions in same order.
+    - web server will catch some exceptions to return user friendly error messages and correct Status Code.
+    - server can be started using vanila Python or Unicorn.
+    - see below how to start it and how to call it
+8. Created Docker image with the web server
+    - source: [server/Dockerfile](server/Dockerfile)
+    - docker image is serving the API on port 9000
+    - see below how to build and run the docker image
+9. Deployed to DigitalOcean using the docker image.
+    - see below how to call ML-project1 running in cloud
+    - this was deployed manually due to lack of time to do proper CI
 
 # Steps to run the application.
 
