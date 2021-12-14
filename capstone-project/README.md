@@ -47,6 +47,8 @@ Jupiter notebook has progress comments on each stept.
 4. Trained a neural network Keras model:
     - source: [capstoneProject_keras.ipynb](capstoneProject_keras.ipynb)
     - notice this notebook is linked to the data_analysis notebook
+    - coverted categorical values to numerical values using LoadEncoding
+    - converted booleans to ints
     - used different Dense layers with various units
     - tried different Keras parameters: learning_rate, batch_size, epochs, optimizer
     - found best Keras parameters:  `learning_rate: 0.01, batch_size: 50, epochs: 40`
