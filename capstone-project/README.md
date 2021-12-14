@@ -75,6 +75,9 @@ Jupiter notebook has progress comments on each stept.
 
 # Steps to run the application.
 
+##
+Unzip `immo_data.csv.zip`, file is too big for Github.
+
 ## Build final model
 Follow commands:
 
