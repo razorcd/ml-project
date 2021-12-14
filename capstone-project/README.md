@@ -41,23 +41,33 @@ Jupiter notebook has progress comments on each stept.
     - tried different xgboost properties: max_bepth, eta
     - found best xgboost arguments with smallest depth:  `max_depth: 20, eta: 0.6`
     - Columns selected for training: 
-        - `x = [newlyConst	balcony	hasKitchen	cellar	baseRent	livingSpace	lift	noRooms	garden	heating	neighbourhoods]`,
+        - `x = [newlyConst	balcony	hasKitchen	cellar	livingSpace	lift	noRooms	garden	heating	neighbourhoods]`,
         - `y = 'baseRent'` (numerical)
     - found `MAE = 219` and `Model max deviation for 50: 27.391 percent`
-4. Built model_training script using xgboost because it was most acurate.
+4. Trained a neural network Keras model:
+    - source: [capstoneProject_keras.ipynb](capstoneProject_keras.ipynb)
+    - notice this notebook is linked to the data_analysis notebook
+    - used different Dense layers with various units
+    - tried different Keras parameters: learning_rate, batch_size, epochs, optimizer
+    - found best Keras parameters:  `learning_rate: 0.01, batch_size: 50, epochs: 40`
+    - Columns selected for training: 
+        - `x = [newlyConst	balcony	hasKitchen	cellar	livingSpace	lift	noRooms	garden	heating	neighbourhood]`,
+        - `y = 'baseRent'` (numerical)
+    - found `MAE = 265`
+5. Built model_training script using xgboost because it was most acurate.
     - source: [server/train_model.py](server/train_model.py)
-7. Created web server to serve model using an API
+6. Created web server to serve model using an API
     - server app source: [server/](server/)
     - server python file source: [server/serve.py](server/serve.py)
     - note the web server can do batch predictions to improuve performance. Reqeust payload accepts an array of data and will return an array of predictions in same order.
     - web server will catch some exceptions to return user friendly error messages and correct Status Code.
     - server can be started using vanila Python or Unicorn.
     - see below how to start it and how to call it
-8. Created Docker image with the web server
+7. Created Docker image with the web server
     - source: [server/Dockerfile](server/Dockerfile)
     - docker image is serving the API on port 9000
     - see below how to build and run the docker image
-9. Deployed to DigitalOcean using the docker image.
+8. Deployed to DigitalOcean using the docker image.
     - see below how to call ML-project1 running in cloud
     - this was deployed manually due to lack of time to do proper CI
 
@@ -372,6 +382,6 @@ Note: Unnecessary use of -X or --request, POST is already inferred.
  - [x] prepare data for model training
  - [x] train with linear logistic regresion
  - [x] train with xgboost
- - [ ] prepare data with Keras and train with Tensorflow (optional)
+ - [x] train with Keras/Tensorflow (optional)
  - [x] create server and dockerize
  - [x] deploy to cloud (optional)
