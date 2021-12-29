@@ -26,16 +26,4 @@ spec:
         ports:
         - containerPort:  8500
           name:  clothing-model
-    #   - image:  zoomcamp-10:server-2
-    #     name:  clothing-server
-    #     resources:
-    #       requests:
-    #         cpu: "0.5"
-    #         memory: "128Mi"
-    #     env:
-    #     - name:  TF_SERVING_HOST
-    #       value:  clothing-model:8500    
-    #     ports:
-    #     - containerPort:  8500
-    #       name:  clothing-server
       restartPolicy: Always

@@ -17,15 +17,6 @@ spec:
         app:  zoomcamp10
     spec:
       containers:
-      # - image:  zoomcamp-10:xception-1
-      #   name:  clothing-model
-      #   resources:
-      #     requests:
-      #       cpu: "0.5"
-      #       memory: "128Mi"
-      #   ports:
-      #   - containerPort:  8500
-      #     name:  clothing-model
       - image:  zoomcamp-10:server-2
         name:  clothing-server
         resources:
@@ -34,7 +25,8 @@ spec:
             memory: "128Mi"
         env:
         - name:  TF_SERVING_HOST
-          value:  zoomcamp10:8500    
+          # value:  zoomcamp10:8500   
+          value: zoomcamp10.default.svc.cluster.local:8500
         ports:
         - containerPort:  9696
           name:  clothing-server
