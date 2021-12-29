@@ -1,0 +1,41 @@
+# RUN first:
+# kind load docker-image zoomcamp-10:xception-1
+# kubectl port-forward zoomcamp10-deployment-69bcbfb85f-q5n5z 8500:8500
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  deployment-clothing-model
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+        app: zoomcamp10
+  template:
+    metadata:
+      labels:
+        app:  zoomcamp10
+    spec:
+      containers:
+      - image:  zoomcamp-10:xception-1
+        name:  clothing-model
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "128Mi"
+        ports:
+        - containerPort:  8500
+          name:  clothing-model
+    #   - image:  zoomcamp-10:server-2
+    #     name:  clothing-server
+    #     resources:
+    #       requests:
+    #         cpu: "0.5"
+    #         memory: "128Mi"
+    #     env:
+    #     - name:  TF_SERVING_HOST
+    #       value:  clothing-model:8500    
+    #     ports:
+    #     - containerPort:  8500
+    #       name:  clothing-server
+      restartPolicy: Always

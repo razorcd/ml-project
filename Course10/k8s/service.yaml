@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  zoomcamp10
+spec:
+  type: LoadBalancer  
+  selector:
+    app:  zoomcamp10
+  ports:
+  - name:  clothing-model-port
+    port:  8500  #external
+    targetPort:  8500
+  - name:  clothing-server-port
+    port:  9696
+    targetPort:  9696
