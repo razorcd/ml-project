@@ -37,6 +37,7 @@ Jupiter notebook has progress comments on each stept.
     - found `MAE = 257.0` and `Model max deviation for 50: 15.041 percent`
 3. Trained a xgboost model:
     - source: [capstoneProject__xgboost.ipynb](capstoneProject__xgboost.ipynb)
+    - source2: [target_encoding/capstoneProject__xgboost_target_encoding.ipynb](target_encoding/capstoneProject__xgboost_target_encoding.ipynb)
     - notice this notebook is linked to the data_analysis notebook
     - tried different xgboost properties: max_bepth, eta
     - found best xgboost arguments with smallest depth:  `max_depth: 20, eta: 0.6`
