@@ -1,4 +1,4 @@
-# Capstone project for ML Zoomcamp
+# ML project
 
 Once you move to Berlin, the hardest thing you face is renting an apartment. The competition is very high and prieces vary a lot.
 I have built this ML application to predict the baseRent of an apartment based on features like living space, rooms, area, etc.
